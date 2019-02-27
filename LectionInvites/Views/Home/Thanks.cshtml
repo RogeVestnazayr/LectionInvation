@@ -1,0 +1,54 @@
+﻿@model LectionInvites.Models.Student
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanks</title>
+    <style>
+
+        body {
+            background-color: #F1F1F1;
+        }
+    </style>
+</head>
+<body>
+    @{
+        try
+        {
+            WebMail.SmtpServer = "KPIserver.example.com";
+            WebMail.SmtpPort = 587;
+            WebMail.EnableSsl = true;
+            WebMail.UserName = "LectorMail";
+            WebMail.Password = "LectorPassword";
+            WebMail.From = "KPI@example.com";
+
+            WebMail.Send("Lektor.com", "Invation Notification",
+                Model.Name + " is " + ((Model.WillAttend ?? false) ? "" : "not")
+                    + "attending");
+
+        }
+        catch (Exception)
+        {
+           @:<b>Извините если мы не можем отправить вам сообщение.</b>
+        }
+    }
+    <div class="text-center">
+        <h1>Thank you, @Model.Name!</h1>
+        <div class="lead">
+            @if (Model.WillAttend == true)
+            {
+                @:Это чудесно!Вас ждет много полеезной информации!
+            }
+            else
+            {
+                @:Жаль что вас не будет!
+            }
+        </div>
+    </div>
+</body>
+</html>

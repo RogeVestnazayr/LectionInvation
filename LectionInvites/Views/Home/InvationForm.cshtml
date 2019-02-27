@@ -1,0 +1,53 @@
+﻿@model LectionInvites.Models.Student
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Styles.css" rel="stylesheet" />
+    <title>InvationForm</title>
+</head>
+<body>
+           @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+                <div class="form-group">
+                    <label>Ваше имя:</label>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Ваша фамилия:</label>
+                    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Ваш емейл:</label>
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Ваша група:</label>
+                    @Html.TextBoxFor(x => x.Group, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Будете ли вы на лекции?</label>
+                    @Html.DropDownListFor(x => x.WillAttend, new[] {
+                            new SelectListItem() {Text = "Да, я приду на лекцию",
+                                Value = bool.TrueString},
+                            new SelectListItem() {Text = "Нет, я не смогу придти =(",
+                                Value = bool.FalseString}
+                        }, "Выберите ваш вариант", new { @class = "form-control" })
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-success" type="submit" value="Подтвердить присутствие" />
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
